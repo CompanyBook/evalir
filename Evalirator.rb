@@ -88,4 +88,16 @@ class Evalirator
     top_k = @search_hits[0, k].to_set
     (@relevant_docids & top_k).size.to_f / k
   end
+  
+  # A single value summary which is
+  # obtained by computing the precision
+  # at the R-th position in the ranking.
+  # Here, R is the total number of
+  # relevant documents for the current
+  # query.
+  def r_precision
+    r = @relevant_docids.size
+    top_r = @search_hits[0, r].to_set
+    (@relevant_docids & top_r).size.to_f / r
+  end
 end

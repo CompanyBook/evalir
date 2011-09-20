@@ -28,5 +28,9 @@ class EvaliratorRankedTest < Test::Unit::TestCase
   def test_precision_at_recall_10
     assert_equal(0.5, @e.precision_at_recall(10))
   end
+  
+  def test_r_precision
+    assert_equal(0.4, @e.r_precision)
+  end
 end
 
