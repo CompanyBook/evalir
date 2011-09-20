@@ -16,9 +16,9 @@ class Evalirator
   # were returned.
   def <<(search_hit)
     @search_hits << search_hit
+
     if @relevant_docids.include? search_hit
       @tp = @tp + 1
-      @relevant_docids.delete search_hit
     else
       @fp = @fp + 1
     end      
@@ -27,14 +27,14 @@ class Evalirator
   # Gets the size of the evaluated set,
   # e.g. the number of search hits added.
   def size
-    @search_hits.size * 1.0
+    @search_hits.size.to_f
   end
 
   # Calculate the number of false negatives.
   # Divide by #size to get the rate, e.g:
   # fn_rate = e.true_negatives / e.size
   def false_negatives
-    @relevant_docids.size
+    @relevant_docids.size - @tp
   end
   
   # Calculate the precision, e.g. the
@@ -71,5 +71,21 @@ class Evalirator
     n = (betaSquared + 1) * (precision * recall)
     d = (betaSquared * precision) + recall
     n / d
+  end
+  
+  # Returns the top p percent hits
+  # that were added to this evalirator.
+  def top_percent(p)
+    k = size * (p / 100.0)
+    @search_hits[0,k.ceil]
+  end
+
+  # Returns the precision at r percent
+  # recall. Used to plot the Precision
+  # vs. Recall curve.
+  def precision_at_recall(r)
+    k = (size * (r / 100.0)).ceil
+    top_k = @search_hits[0, k].to_set
+    (@relevant_docids & top_k).size.to_f / k
   end
 end

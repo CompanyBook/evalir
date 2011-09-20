@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'Evalirator.rb'
 
-class EvaliratorTest < Test::Unit::TestCase
+class EvaliratorUnrankedTest < Test::Unit::TestCase
   def setup
     @e = Evalirator.new(1)
     @e << 1
