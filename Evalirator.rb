@@ -6,7 +6,7 @@ class Evalirator
   # as a basis for later calculations.
   def initialize(*relevant_docids)
     @relevant_docids = relevant_docids.to_set
-    @tp = @fp = @tn = @fn = 0
+    @tp = @fp = 0
     @search_hits = []
   end
   
