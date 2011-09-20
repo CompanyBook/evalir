@@ -14,7 +14,7 @@ class EvaliratorTest < Test::Unit::TestCase
   end
   
   def test_recall_on_empty
-    assert(Evalirator.new(1).recall.nan?)
+    assert_equal(0, Evalirator.new(1).recall)
   end
   
   def test_precision

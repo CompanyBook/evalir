@@ -49,7 +49,7 @@ class Evalirator
   # were retrieved.
   def recall
     fn = false_negatives
-    @tp / (@tp + @fn + 0.0)
+    @tp / (@tp + fn + 0.0)
   end
   
   # Calculate the evenly weighted
