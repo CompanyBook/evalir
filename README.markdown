@@ -23,6 +23,7 @@ However, this is *not* the query. A user will try to encode her need like a quer
 > red white wine reducing "heart attack"
 
 To evaluate an IR system with Evalir, we will need human-annotated test data, each data point consisting of the following:
+
 * An explicit information need
 * A query
 * A list of documents that are relevant w.r.t. the information need (*not* the query)
