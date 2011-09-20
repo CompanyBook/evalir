@@ -49,15 +49,15 @@ class Evalirator
   end
   
   # Calculate the precision, e.g. the
-  # rate of returned documents that@
-  # were relevant.
+  # fraction of returned documents that
+  # were retrieved.
   def precision
     @tp / size
   end
   
   # Calculate the recall, e.g. the
-  # rate of relevant documents that
-  # were returned.
+  # fraction of relevant documents that
+  # were retrieved.
   def recall
     fn = false_negatives
     @tp / (@tp + @fn + 0.0)
