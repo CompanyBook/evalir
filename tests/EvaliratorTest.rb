@@ -1,25 +1,20 @@
 require 'test/unit'
 require 'Evalirator.rb'
-require 'Judgement.rb'
 
 class EvaliratorTest < Test::Unit::TestCase
   def setup
-    j1 = Judgement.new(1, true)
-    j2 = Judgement.new(2, false)
-    j3 = Judgement.new(3, false)
-    
-    @e = Evalirator.new(j1, j2, j3)
+    @e = Evalirator.new(1)
     @e << 1
     @e << 4
     @e << 8
   end
   
   def test_precision_on_empty
-    assert(Evalirator.new(Judgement.new(1, false)).precision.nan?)
+    assert(Evalirator.new(1).precision.nan?)
   end
   
   def test_recall_on_empty
-    assert(Evalirator.new(Judgement.new(1, false)).recall.nan?)
+    assert(Evalirator.new(1).recall.nan?)
   end
   
   def test_precision
@@ -32,10 +27,6 @@ class EvaliratorTest < Test::Unit::TestCase
   
   def test_size
     assert_equal(3.0, @e.size)
-  end
-  
-  def test_true_negatives
-    assert_equal(2, @e.true_negatives)
   end
 
   def test_f1

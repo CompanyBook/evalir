@@ -4,11 +4,8 @@ class Evalirator
   # Instantiates a new instance of the
   # Evalirator, using the provided judgements
   # as a basis for later calculations.
-  def initialize(*judgements)
-    @judgements = judgements
-    @relevant_ids = judgements.find_all {|j| j.relevant? }.collect {|j| j.docid }.to_set
-    @irrelevant_ids = judgements.find_all {|j| !j.relevant? }.collect {|j| j.docid }.to_set
-    
+  def initialize(*relevant_docids)
+    @relevant_docids = relevant_docids.to_set
     @tp = @fp = @tn = @fn = 0
     @search_hits = []
   end
@@ -19,12 +16,11 @@ class Evalirator
   # were returned.
   def <<(search_hit)
     @search_hits << search_hit
-    if @relevant_ids.include? search_hit
+    if @relevant_docids.include? search_hit
       @tp = @tp + 1
-      @relevant_ids.delete search_hit
+      @relevant_docids.delete search_hit
     else
       @fp = @fp + 1
-      @irrelevant_ids.delete search_hit
     end      
   end
 
@@ -34,18 +30,11 @@ class Evalirator
     @search_hits.size * 1.0
   end
 
-  # Calculate the number of true negatives.
-  # Divide by #size to get the rate, e.g:
-  # tn_rate = e.true_negatives / e.size
-  def true_negatives
-    @irrelevant_ids.size
-  end
-  
   # Calculate the number of false negatives.
   # Divide by #size to get the rate, e.g:
   # fn_rate = e.true_negatives / e.size
   def false_negatives
-    @relevant_ids.size
+    @relevant_docids.size
   end
   
   # Calculate the precision, e.g. the
