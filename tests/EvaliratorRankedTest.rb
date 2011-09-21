@@ -4,21 +4,9 @@ require 'Evalirator.rb'
 class EvaliratorRankedTest < Test::Unit::TestCase
   def setup
     @e = Evalirator.new(3, 5, 9, 25, 39, 44, 56, 71, 89, 123)
-    @e << 123
-    @e << 84
-    @e << 56
-    @e << 6
-    @e << 8
-    @e << 9
-    @e << 511
-    @e << 129
-    @e << 187
-    @e << 25
-    @e << 38
-    @e << 48
-    @e << 250
-    @e << 113
-    @e << 3
+    [123,84,56,6,8,9,511,129,187,25,38,48,250,113,3].each do |i|
+      @e << i
+    end
   end
   
   def test_top_10_percent
