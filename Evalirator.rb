@@ -38,8 +38,8 @@ class Evalirator
   end
   
   # Calculate the precision, e.g. the
-  # fraction of returned documents that
-  # were retrieved.
+  # fraction of retrieved documents that
+  # were relevant.
   def precision
     @tp / size
   end
