@@ -32,7 +32,7 @@ class Evalirator
 
   # Calculate the number of false negatives.
   # Divide by #size to get the rate, e.g:
-  # fn_rate = e.true_negatives / e.size
+  # fn_rate = e.false_negatives / e.size
   def false_negatives
     @relevant_docids.size - @tp
   end
