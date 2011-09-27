@@ -1,20 +1,20 @@
 require 'test/unit'
-require 'Evalirator.rb'
+require_relative '../lib/evalir'
 
 class EvaliratorUnrankedTest < Test::Unit::TestCase
   def setup
-    @e = Evalirator.new(1)
+    @e = Evalir::Evalirator.new(1)
     @e << 1
     @e << 4
     @e << 8
   end
   
   def test_precision_on_empty
-    assert(Evalirator.new(1).precision.nan?)
+    assert(Evalir::Evalirator.new(1).precision.nan?)
   end
   
   def test_recall_on_empty
-    assert_equal(0, Evalirator.new(1).recall)
+    assert_equal(0, Evalir::Evalirator.new(1).recall)
   end
   
   def test_precision
@@ -38,11 +38,11 @@ class EvaliratorUnrankedTest < Test::Unit::TestCase
   end
   
   def test_f05
-    assert_equal('0.384615384615385', @e.f_measure(0.5).to_s)
+    assert_equal('0.3846153846153846', @e.f_measure(0.5).to_s)
   end
   
   def test_f3
-    assert_equal('0.833333333333333', @e.f_measure(3.0).to_s)
+    assert_equal('0.8333333333333333', @e.f_measure(3.0).to_s)
   end
 end
 
