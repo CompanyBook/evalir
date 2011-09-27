@@ -30,5 +30,15 @@ class EvaliratorRankedTest < Test::Unit::TestCase
   def test_r_precision
     assert_equal(0.4, @e.r_precision)
   end
+  
+  def test_average_precision
+    e1 = Evalir::Evalirator.new(1,3,4,5,6,10)
+    e1.add(1,2,3,4,5,6,7,8,9,10)
+    assert_equal(0.78, e1.average_precision.round(2))
+    
+    e2 = Evalir::Evalirator.new(2,5,6,7,9,10)
+    e2.add(1,2,3,4,5,6,7,8,9,10)
+    assert_equal(0.52, e2.average_precision.round(2))
+  end
 end
 

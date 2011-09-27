@@ -28,7 +28,7 @@ class EvaliratorUnrankedTest < Test::Unit::TestCase
   def test_size
     assert_equal(3.0, @e.size)
   end
-
+  
   def test_f1
     assert_equal(0.5, @e.f1)
   end
@@ -38,11 +38,11 @@ class EvaliratorUnrankedTest < Test::Unit::TestCase
   end
   
   def test_f05
-    assert_equal('0.3846153846153846', @e.f_measure(0.5).to_s)
+    assert_equal(0.38, @e.f_measure(0.5).round(2))
   end
   
   def test_f3
-    assert_equal('0.8333333333333333', @e.f_measure(3.0).to_s)
+    assert_equal(0.833, @e.f_measure(3.0).round(3))
   end
 end
 

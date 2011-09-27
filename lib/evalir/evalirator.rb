@@ -91,8 +91,8 @@ module Evalir
       @search_hits[0,k.ceil]
     end
     
-    # Returns the precision at the rank
-    # k, meaning the precision after exactly
+    # The precision at the rank k, 
+    # meaning the precision after exactly
     # k documents have been retrieved.
     def precision_at_rank(k)
       top_k = @search_hits[0, k].to_set
@@ -118,6 +118,25 @@ module Evalir
       r = @relevant_docids.size
       top_r = @search_hits[0, r].to_set
       (@relevant_docids & top_r).size.to_f / r
+    end
+    
+    # The average precision. This is
+    # equivalent to the average of calling
+    # #precision_at_rank with 1..n, n
+    # being the number of results.
+    def average_precision
+      n = 0
+      avg = 0.0
+      relevant = 0
+
+      @search_hits.each do |h|
+        n = n + 1
+        if @relevant_docids.include? h
+          relevant = relevant + 1
+          avg += (relevant.to_f / n) / @relevant_docids.size
+        end
+      end
+      avg
     end
   end
 end
