@@ -138,5 +138,24 @@ module Evalir
       end
       avg
     end
+    
+    # Discounted Cumulative Gain at
+    # rank k. For a relevant search
+    # result at position x, its con-
+    # tribution to the DCG is 
+    # 1.0/Math.log(x, logbase). A
+    # higher logbase means more dis-
+    # counts for results further out.
+    def dcg_at(k, logbase=2)
+      i = 1
+      dcg = 0.0
+      @search_hits[0, k].each do |h|
+        if @relevant_docids.include? h
+          dcg += i == 1 ? 1.0 : 1.0 / Math.log(i, logbase)
+        end
+        i += 1
+      end
+      dcg
+    end
   end
 end

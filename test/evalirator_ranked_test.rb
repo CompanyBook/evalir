@@ -32,5 +32,10 @@ class EvaliratorRankedTest < Test::Unit::TestCase
     e2.add(1,2,3,4,5,6,7,8,9,10)
     assert_equal(0.52, e2.average_precision.round(2))
   end
+  
+  def test_dcg_at_5
+    expected = 1.0 + (1.0/Math.log(3,2))
+    assert_equal(expected, @e.dcg_at(5))
+  end
 end
 
