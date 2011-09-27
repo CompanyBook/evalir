@@ -4,9 +4,7 @@ require_relative '../lib/evalir'
 class EvaliratorUnrankedTest < Test::Unit::TestCase
   def setup
     @e = Evalir::Evalirator.new(1)
-    @e << 1
-    @e << 4
-    @e << 8
+    @e.add(1,4,8)
   end
   
   def test_precision_on_empty
