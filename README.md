@@ -9,6 +9,8 @@ What can Evalir do?
 * Precision
 * Recall
 * Precision at Recall (e.g. Precision at 20%)
+* Precision at rank k
+* Average Precision
 * F-measure
 * R-Precision
 
@@ -31,8 +33,10 @@ To evaluate an IR system with Evalir, we will need human-annotated test data, ea
 For example, we have the aforementioned information need and query, and a list of documents that have been found to be relevant; { 123, 654, 29, 1029 }. If we had the actual query results in an array named *results*, we could use Evalir like this:
 
     e = Evalirator.new(123, 654, 29, 1029)
-    results.each { |r| e << r }
+	e.add(results)
     puts "Precision: #{e.precision}"
     puts "Recall: #{e.recall}"
     puts "F-1: #{e.f1}"	
     puts "F-3: #{e.f_measure(3)}"
+	puts "Precision at rank 10: #{e.precision_at_rank(10)}"
+	puts "Average Precision: #{e.average_precision}"
