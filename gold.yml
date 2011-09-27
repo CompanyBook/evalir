@@ -1,7 +1,0 @@
---- !ruby/object:GoldStandard 
-information_need: Annual revenue of Statoil
-query: statoil
-relevant_docids: 
-- NO0000000923609016
-- NO0000000987110295
-- NO0000000963827105
