@@ -2,12 +2,20 @@ require 'set'
 
 module Evalir
   class Evalirator
+    # Gets the number of retrieved results 
+    # that were indeed relevant.
+    attr_reader :true_positives
+    
+    # Gets the number of retrieved results
+    # that were in fact irrelevant.
+    attr_reader :false_positives
+    
     # Instantiates a new instance of the
     # Evalirator, using the provided judgements
     # as a basis for later calculations.
     def initialize(*relevant_docids)
       @relevant_docids = relevant_docids.to_set
-      @tp = @fp = 0
+      @true_positives = @false_positives = 0
       @search_hits = []
     end
   
@@ -19,9 +27,9 @@ module Evalir
       @search_hits << search_hit
 
       if @relevant_docids.include? search_hit
-        @tp = @tp + 1
+        @true_positives = @true_positives + 1
       else
-        @fp = @fp + 1
+        @false_positives = @false_positives + 1
       end      
     end
   
@@ -40,19 +48,19 @@ module Evalir
     def size
       @search_hits.size.to_f
     end
-
+    
     # Calculate the number of false negatives.
     # Divide by #size to get the rate, e.g:
     # fn_rate = e.false_negatives / e.size
     def false_negatives
-      @relevant_docids.size - @tp
+      @relevant_docids.size - @true_positives
     end
   
     # Calculate the precision, e.g. the
     # fraction of retrieved documents that
     # were relevant.
     def precision
-      @tp / size
+      @true_positives / size
     end
   
     # Calculate the recall, e.g. the
@@ -60,7 +68,7 @@ module Evalir
     # were retrieved.
     def recall
       fn = false_negatives
-      @tp / (@tp + fn + 0.0)
+      @true_positives / (@true_positives + fn + 0.0)
     end
   
     # Calculate the evenly weighted

@@ -27,6 +27,18 @@ class EvaliratorUnrankedTest < Test::Unit::TestCase
     assert_equal(3.0, @e.size)
   end
   
+  def test_false_negatives
+    assert_equal(0, @e.false_negatives)
+  end
+  
+  def test_true_positives
+    assert_equal(1, @e.true_positives)
+  end
+  
+  def test_false_positives
+    assert_equal(2, @e.false_positives)
+  end
+  
   def test_f1
     assert_equal(0.5, @e.f1)
   end
