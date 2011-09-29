@@ -1,6 +1,6 @@
+require 'evalir/evalirator'
+
 module Evalir
-  VERSION = '0.1'
-  
   class Evalir
     def initialize
       @evalirators = []
@@ -27,7 +27,3 @@ module Evalir
     end
   end
 end
-
-path = File.expand_path(File.dirname(__FILE__))
-$:.unshift path unless $:.include?(path)
-require 'evalir/evalirator'
