@@ -1,9 +1,19 @@
 require 'evalir/evalirator'
 
 module Evalir
-  class Evalir
+  class EvaliratorCollection
+    include Enumerable
+    
     def initialize
       @evalirators = []
+    end
+
+    def each(&block)
+      @evalirators.each(&block)
+    end
+    
+    def <<(evalirator)
+      @evalirators << evalirator
     end
 
     # Adds a list of relevant documents, and
