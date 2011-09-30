@@ -57,13 +57,10 @@ module Evalir
     def precision_recall_curve(from = 0, to = 100, step = 10)
       return nil if @evalirators.empty?
       
-      #n = self.size.to_f
-      x = 1
       curves = self.lazy_map { |e| e.precision_recall_curve(from, to, step) }
-      return curves.reduce do |acc, data|
-        x += 1
+      avg = curves.reduce do |acc, data|
         data.each_with_index.map do |d,i|
-          acc[i] = (acc[i] + d) / x
+          acc[i] = (acc[i] + d) / 2.0
         end
       end
     end
