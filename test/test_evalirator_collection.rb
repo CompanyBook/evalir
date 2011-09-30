@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative '../lib/evalir'
+require 'evalir'
 
 class EvaliratorCollectionTest < Test::Unit::TestCase
   def setup
@@ -14,5 +14,11 @@ class EvaliratorCollectionTest < Test::Unit::TestCase
   
   def test_simple_enumeration
     assert_equal(2, @e.count)
+  end
+  
+  def test_precision_recall_curve
+    expected = [1.0, 0.5, 0.5, 0.5, 0.375, 0.4, 0.417, 0.429, 0.375, 0.389, 0.4]
+    actual = @e.precision_recall_curve.collect { |f| f.round(3) }
+    assert_equal(expected, actual)
   end
 end

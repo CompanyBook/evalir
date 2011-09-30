@@ -96,6 +96,7 @@ module Evalir
     # recall. Used to plot the Precision
     # vs. Recall curve.
     def precision_at_recall(r)
+      return 1.0 if r == 0.0
       k = (size * r).ceil
       top_k = @search_hits[0, k].to_set
       (@relevant_docids & top_k).size.to_f / k
@@ -111,6 +112,22 @@ module Evalir
       r = @relevant_docids.size
       top_r = @search_hits[0, r].to_set
       (@relevant_docids & top_r).size.to_f / r
+    end
+    
+    # Gets the data for the precision-recall
+    # curve, ranging over the interval [<em>from</em>, 
+    # <em>to</em>], with a step size of <em>step</em>.
+    def precision_recall_curve(from = 0, to = 100, step = 10)
+      raise "From must be in the interval [0, 100)" unless (from >= 0 and from < 100)
+      raise "To must be in the interval (from, 100]" unless (to > from and to <= 100)
+      raise "Invalid step size - (to-from) must be divisible by step." unless ((to - from) % step) == 0
+      
+      data = []
+      range = from..to
+      range.step(step).each do |recall|
+        data << self.precision_at_recall(recall/100.0)
+      end
+      data
     end
     
     # The average precision. This is

@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative '../lib/evalir'
+require 'evalir'
 
 class EvaliratorRankedTest < Test::Unit::TestCase
   def setup
@@ -18,6 +18,18 @@ class EvaliratorRankedTest < Test::Unit::TestCase
   
   def test_precision_at_recall_0_1
     assert_equal(0.5, @e.precision_at_recall(0.1))
+  end
+  
+  def test_precision_at_recall_0
+    assert_equal(1.0, @e.precision_at_recall(0.0))
+  end
+  
+  def test_precision_recall_curve
+    relevant = [1,3,5,7,9]
+    retrieved = [1,2,3,4,5,6,7,8,9,10]
+    expected = [1.0,1/1.0,1/2.0,2/3.0,2/4.0,3/5.0,3/6.0,4/7.0,4/8.0,5/9.0,5/10.0]
+    evalirator = Evalir::Evalirator.new(relevant, retrieved)
+    assert_equal(expected, evalirator.precision_recall_curve)
   end
   
   def test_r_precision
