@@ -3,8 +3,9 @@ require_relative '../lib/evalir'
 
 class EvaliratorRankedTest < Test::Unit::TestCase
   def setup
-    @e = Evalir::Evalirator.new(3, 5, 9, 25, 39, 44, 56, 71, 89, 123)
-    @e.add(123,84,56,6,8,9,511,129,187,25,38,48,250,113,3)
+    relevant = [3, 5, 9, 25, 39, 44, 56, 71, 89, 123]
+    retrieved = [123,84,56,6,8,9,511,129,187,25,38,48,250,113,3]
+    @e = Evalir::Evalirator.new(relevant, retrieved)
   end
 
   def test_top_10_percent
@@ -24,12 +25,10 @@ class EvaliratorRankedTest < Test::Unit::TestCase
   end
   
   def test_average_precision
-    e1 = Evalir::Evalirator.new(1,3,4,5,6,10)
-    e1.add(1,2,3,4,5,6,7,8,9,10)
+    e1 = Evalir::Evalirator.new([1,3,4,5,6,10], [1,2,3,4,5,6,7,8,9,10])
     assert_equal(0.78, e1.average_precision.round(2))
     
-    e2 = Evalir::Evalirator.new(2,5,6,7,9,10)
-    e2.add(1,2,3,4,5,6,7,8,9,10)
+    e2 = Evalir::Evalirator.new([2,5,6,7,9,10], [1,2,3,4,5,6,7,8,9,10])
     assert_equal(0.52, e2.average_precision.round(2))
   end
   

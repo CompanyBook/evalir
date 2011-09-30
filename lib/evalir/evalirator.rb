@@ -13,36 +13,21 @@ module Evalir
     # Instantiates a new instance of the
     # Evalirator, using the provided judgements
     # as a basis for later calculations.
-    def initialize(*relevant_docids)
+    def initialize(relevant_docids, retrieved_docids = [])
       @relevant_docids = relevant_docids.to_set
       @true_positives = @false_positives = 0
       @search_hits = []
-    end
-  
-    # Adds a search hit to be evaluated.
-    # For ranked evaluation, it's important
-    # that hits are added in the order they
-    # were returned.
-    def <<(search_hit)
-      @search_hits << search_hit
-
-      if @relevant_docids.include? search_hit
-        @true_positives = @true_positives + 1
-      else
-        @false_positives = @false_positives + 1
-      end      
-    end
-  
-    # Adds a number of search hits which
-    # are to be evaluated. For ranked eval-
-    # uation, it's important that hits are
-    # added in the order they were returned.
-    def add(*search_hit)
-      search_hit.each do |h| 
-        self.<<(h)
+      
+      retrieved_docids.each do |docid|
+        if @relevant_docids.include? docid
+          @true_positives = @true_positives + 1
+        else
+          @false_positives = @false_positives + 1
+        end
+        @search_hits << docid
       end
     end
-
+  
     # Gets the size of the evaluated set,
     # e.g. the number of search hits added.
     def size

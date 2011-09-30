@@ -3,16 +3,15 @@ require_relative '../lib/evalir'
 
 class EvaliratorUnrankedTest < Test::Unit::TestCase
   def setup
-    @e = Evalir::Evalirator.new(1)
-    @e.add(1,4,8)
+    @e = Evalir::Evalirator.new([1], [1,4,8])
   end
   
   def test_precision_on_empty
-    assert(Evalir::Evalirator.new(1).precision.nan?)
+    assert(Evalir::Evalirator.new([1]).precision.nan?)
   end
   
   def test_recall_on_empty
-    assert_equal(0, Evalir::Evalirator.new(1).recall)
+    assert_equal(0, Evalir::Evalirator.new([1]).recall)
   end
   
   def test_precision

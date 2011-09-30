@@ -19,10 +19,8 @@ module Evalir
     # Adds a list of relevant documents, and
     # a list of retrived documents. This rep-
     # resents one information need.
-    def add(relevant_docids, result_docids)
-      e = Evalirator.new(*relevant_docids)
-      e.add(*result_docids)
-      @evalirators << e
+    def add(relevant_docids, retrieved_docids)
+      @evalirators << Evalirator.new(relevant_docids, retrieved_docids)
     end
     
     # Mean Average Precision - this is just
