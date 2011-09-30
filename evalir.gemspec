@@ -18,8 +18,4 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "rake"
-
-  # specify any dependencies here; for example:
-  # s.add_runtime_dependency "rest-client"
-  # s.add_runtime_dependency "rake/testtask"
 end
