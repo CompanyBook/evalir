@@ -44,6 +44,7 @@ For example, we have the aforementioned information need and query, and a list o
     puts "F-3: #{e.f_measure(3)}"
 	puts "Precision at rank 10: #{e.precision_at_rank(10)}"
 	puts "Average Precision: #{e.average_precision}"
+	puts "NDCG @ 5: #{e.ndcg_at(5)}"
 	
 When you have several information needs and want to compute aggregate statistics, use an EvaliratorCollection like this:
 
@@ -51,7 +52,9 @@ When you have several information needs and want to compute aggregate statistics
 	queries.each do |query|
 	  relevant = get_relevant_docids(query)
 	  results = get_results(query)
-	  e << Evalir.Evalirator.new(relevant, results)
+	  e.add(relevant, results)
 	end
+	
 	puts "MAP: #{e.mean_average_precision}"
 	puts "Precision-Recall Curve: #{e.precision_recall_curve}"
+	puts "Avg. NDCG @ 3: #{e.average_ndcg_at(3)}"
