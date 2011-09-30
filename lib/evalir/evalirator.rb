@@ -149,6 +149,17 @@ module Evalir
       avg
     end
     
+    # The reciprocal rank, meaning
+    # 1 divided by the rank of the
+    # most highly ranked relevant
+    # result.
+    def reciprocal_rank
+      @search_hits.each_with_index do |h,i|
+        return 1.0 / (i + 1) if @relevant_docids.include? h
+      end
+      return 0.0
+    end
+    
     # Discounted Cumulative Gain at
     # rank k. For a relevant search
     # result at position x, its con-
@@ -167,5 +178,26 @@ module Evalir
       end
       dcg
     end
+    
+    # Normalized Discounted Cumulative
+    # Gain at rank <em>k</em>. This is
+    # the #dcg_at normalized by the optimal
+    # dcg value at rank k.
+    def ndcg_at(k, logbase=2)
+      dcg = dcg_at(k, logbase)
+      dcg > 0 ? dcg / ideal_dcg_at(k, logbase) : 0
+    end
+    
+    private
+      def ideal_dcg_at(k, logbase=2)
+        idcg = 0.0
+        n = @true_positives
+        (1..k).each do |i|
+          break unless n > 0
+          idcg += i == 1 ? 1.0 : 1.0 / Math.log(i, logbase)
+          n -= 1
+        end
+        idcg
+      end
   end
 end

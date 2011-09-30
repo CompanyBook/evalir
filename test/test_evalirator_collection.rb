@@ -16,9 +16,18 @@ class EvaliratorCollectionTest < Test::Unit::TestCase
     assert_equal(2, @e.count)
   end
   
+  def test_mean_reciprocal_rank
+    expected = (1.0 + 0.5) / 2
+    assert_equal(expected, @e.mean_reciprocal_rank)
+  end
+  
   def test_precision_recall_curve
     expected = [1.0, 0.5, 0.5, 0.5, 0.375, 0.4, 0.417, 0.429, 0.375, 0.389, 0.4]
     actual = @e.precision_recall_curve.collect { |f| f.round(3) }
     assert_equal(expected, actual)
+  end
+  
+  def test_average_ndcg_at_3
+    assert_equal(0.5, @e.average_ndcg_at(3).round(2))
   end
 end

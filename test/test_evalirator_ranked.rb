@@ -36,6 +36,10 @@ class EvaliratorRankedTest < Test::Unit::TestCase
     assert_equal(0.4, @e.r_precision)
   end
   
+  def test_reciprocal_rank
+    assert_equal(1.0, @e.reciprocal_rank)
+  end
+  
   def test_average_precision
     e1 = Evalir::Evalirator.new([1,3,4,5,6,10], [1,2,3,4,5,6,7,8,9,10])
     assert_equal(0.78, e1.average_precision.round(2))
@@ -47,6 +51,22 @@ class EvaliratorRankedTest < Test::Unit::TestCase
   def test_dcg_at_5
     expected = 1.0 + (1.0/Math.log(3,2))
     assert_equal(expected, @e.dcg_at(5))
+  end
+
+  def test_ndcg_at_3
+    dcg = 1.0 + (1.0/Math.log(3,2))
+    idcg = 2.0 + (1.0/Math.log(3,2))
+    assert_equal(dcg/idcg, @e.ndcg_at(3))
+  end
+  
+  def test_dcg_when_no_relevant
+    e = Evalir::Evalirator.new([1,2,3],[4,5,6])
+    assert_equal(0.0, e.dcg_at(3))
+  end
+    
+  def test_ndcg_when_no_relevant
+    e = Evalir::Evalirator.new([1,2,3], [4,5,6])
+    assert_equal(0.0, e.ndcg_at(3))
   end
 end
 

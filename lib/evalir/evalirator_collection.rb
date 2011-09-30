@@ -43,11 +43,11 @@ module Evalir
     # a fancy way of saying 'average average
     # precision'!
     def mean_average_precision
-      avg = 0.0
-      @evalirators.each do |e|
-        avg += (e.average_precision / @evalirators.size)
-      end
-      avg
+      @evalirators.reduce(0.0) {|avg,e| avg + (e.average_precision / @evalirators.size)}
+    end
+    
+    def mean_reciprocal_rank
+      self.reduce(0.0) { |avg,e| avg + (e.reciprocal_rank / self.size)}
     end
     
     # Gets the data for the precision-recall
@@ -55,14 +55,25 @@ module Evalir
     # <em>to</em>], with a step size of <em>step</em>.
     # This is the average over all evalirators.
     def precision_recall_curve(from = 0, to = 100, step = 10)
+      raise "From must be in the interval [0, 100)" unless (from >= 0 and from < 100)
+      raise "To must be in the interval (from, 100]" unless (to > from and to <= 100)
+      raise "Invalid step size - (to-from) must be divisible by step." unless ((to - from) % step) == 0
       return nil if @evalirators.empty?
-      
+
+      steps = ((to - from) / step) + 1
       curves = self.lazy_map { |e| e.precision_recall_curve(from, to, step) }
-      avg = curves.reduce do |acc, data|
+      curves.reduce([0] * steps) do |acc, data|
         data.each_with_index.map do |d,i|
-          acc[i] = (acc[i] + d) / 2.0
+          acc[i] += d / self.size
         end
       end
+    end
+    
+    # Gets the average Normalized Discounted
+    # Cumulative Gain over all queries.
+    def average_ndcg_at(k, logbase = 2)
+      values = self.lazy_map {|e| e.ndcg_at(k, logbase)}
+      values.reduce(0.0) { |acc, v| acc + (v / self.size) }
     end
   end
 end

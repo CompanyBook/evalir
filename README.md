@@ -12,6 +12,8 @@ What can Evalir do?
 * Precision at rank k
 * Average Precision
 * Precision-Recall curve
+* Reciprocal Rank
+* [Mean Reciprocal Rank](http://en.wikipedia.org/wiki/Mean_reciprocal_rank)
 * [Mean Average Precision (MAP)](http://en.wikipedia.org/wiki/Information_retrieval#Mean_average_precision)
 * [F-measure](http://en.wikipedia.org/wiki/Information_retrieval#F-measure)
 * [R-Precision](http://en.wikipedia.org/wiki/Information_retrieval#R-Precision)
