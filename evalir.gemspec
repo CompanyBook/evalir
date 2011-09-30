@@ -7,10 +7,10 @@ Gem::Specification.new do |s|
   s.version     = Evalir::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Alexander Mossin"]
-  s.email       = ["alexander@companybook.no"]
+  s.email       = ["alexander@companybook.no", "alexander.mossin@gmail.com"]
   s.homepage    = "http://github.com/companybook/Evalir"
-  s.summary     = %q{Evalir is a library for evaluation of IR systems.}
-  s.description = %q{Evalir offers a number of standard measurements, from the basic precision and recall to single value summaries such as NDCG and MAP.}
+  s.summary     = %q{A library for evaluation of IR systems.}
+  s.description = %q{Evalir is used to measure search relevance at Companybook, and offers a number of standard measurements, from the basic precision and recall to single value summaries such as NDCG and MAP.}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
