@@ -9,7 +9,7 @@ class EvaliratorCollectionTest < Test::Unit::TestCase
   end
   
   def test_map
-    assert_equal(0.53, @e.map.round(2))
+    assert_equal(0.53, @e.mean_average_precision.round(2))
   end
   
   def test_simple_enumeration

@@ -42,7 +42,7 @@ module Evalir
     # Mean Average Precision - this is just
     # a fancy way of saying 'average average
     # precision'!
-    def map
+    def mean_average_precision
       avg = 0.0
       @evalirators.each do |e|
         avg += (e.average_precision / @evalirators.size)

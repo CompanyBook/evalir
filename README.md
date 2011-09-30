@@ -6,13 +6,17 @@ For a good reference on the theory behind this, please check out Manning, Raghav
 
 What can Evalir do?
 -------------------
-* Precision
-* Recall
+* [Precision](http://en.wikipedia.org/wiki/Information_retrieval#Precision)
+* [Recall](http://en.wikipedia.org/wiki/Information_retrieval#Recall)
 * Precision at Recall (e.g. Precision at 20%)
 * Precision at rank k
 * Average Precision
-* F-measure
-* R-Precision
+* Precision-Recall curve
+* [Mean Average Precision (MAP)](http://en.wikipedia.org/wiki/Information_retrieval#Mean_average_precision)
+* [F-measure](http://en.wikipedia.org/wiki/Information_retrieval#F-measure)
+* [R-Precision](http://en.wikipedia.org/wiki/Information_retrieval#R-Precision)
+* [Discounted Cumulative Gain (DCG)](http://en.wikipedia.org/wiki/Discounted_cumulative_gain)
+* [Normalized DCG](http://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG)
 
 How does Evalir work?
 ---------------------
@@ -30,13 +34,24 @@ To evaluate an IR system with Evalir, we will need human-annotated test data, ea
 * A query
 * A list of documents that are relevant w.r.t. the information need (*not* the query)
 
-For example, we have the aforementioned information need and query, and a list of documents that have been found to be relevant; { 123, 654, 29, 1029 }. If we had the actual query results in an array named *results*, we could use Evalir like this:
+For example, we have the aforementioned information need and query, and a list of documents that have been found to be relevant; { 123, 654, 29, 1029 }. If we had the actual query results in an array named *results*, we could use an Evalirator like this:
 
-    e = Evalirator.new(123, 654, 29, 1029)
-	e.add(results)
+	relevant = [123, 654, 29, 1029]
+    e = Evalir::Evalirator.new(relevant, results)
     puts "Precision: #{e.precision}"
     puts "Recall: #{e.recall}"
     puts "F-1: #{e.f1}"	
     puts "F-3: #{e.f_measure(3)}"
 	puts "Precision at rank 10: #{e.precision_at_rank(10)}"
 	puts "Average Precision: #{e.average_precision}"
+	
+When you have several information needs and want to compute aggregate statistics, use an EvaliratorCollection like this:
+
+	e = Evalir::EvaliratorCollection.new
+	queries.each do |query|
+	  relevant = get_relevant_docids(query)
+	  results = get_results(query)
+	  e << Evalir.Evalirator.new(relevant, results)
+	end
+	puts "MAP: #{e.mean_average_precision}"
+	puts "Precision-Recall Curve: #{e.precision_recall_curve}"
