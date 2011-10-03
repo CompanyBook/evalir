@@ -38,25 +38,32 @@ To evaluate an IR system with Evalir, we will need human-annotated test data, ea
 
 For example, we have the aforementioned information need and query, and a list of documents that have been found to be relevant; { 123, 654, 29, 1029 }. If we had the actual query results in an array named *results*, we could use an Evalirator like this:
 
-	relevant = [123, 654, 29, 1029]
-    e = Evalir::Evalirator.new(relevant, results)
-    puts "Precision: #{e.precision}"
-    puts "Recall: #{e.recall}"
-    puts "F-1: #{e.f1}"	
-    puts "F-3: #{e.f_measure(3)}"
-	puts "Precision at rank 10: #{e.precision_at_rank(10)}"
-	puts "Average Precision: #{e.average_precision}"
-	puts "NDCG @ 5: #{e.ndcg_at(5)}"
-	
+``` ruby
+require 'rubygems'
+require 'evalir'
+
+relevant = [123, 654, 29, 1029]
+e = Evalir::Evalirator.new(relevant, results)
+puts "Precision: #{e.precision}"
+puts "Recall: #{e.recall}"
+puts "F-1: #{e.f1}"	
+puts "F-3: #{e.f_measure(3)}"
+puts "Precision at rank 10: #{e.precision_at_rank(10)}"
+puts "Average Precision: #{e.average_precision}"
+puts "NDCG @ 5: #{e.ndcg_at(5)}"
+```	
+
 When you have several information needs and want to compute aggregate statistics, use an EvaliratorCollection like this:
 
-	e = Evalir::EvaliratorCollection.new
-	queries.each do |query|
-	  relevant = get_relevant_docids(query)
-	  results = get_results(query)
-	  e.add(relevant, results)
-	end
+``` ruby
+e = Evalir::EvaliratorCollection.new
+queries.each do |query|
+  relevant = get_relevant_docids(query)
+  results = get_results(query)
+  e.add(relevant, results)
+end
 	
-	puts "MAP: #{e.mean_average_precision}"
-	puts "Precision-Recall Curve: #{e.precision_recall_curve}"
-	puts "Avg. NDCG @ 3: #{e.average_ndcg_at(3)}"
+puts "MAP: #{e.mean_average_precision}"
+puts "Precision-Recall Curve: #{e.precision_recall_curve}"
+puts "Avg. NDCG @ 3: #{e.average_ndcg_at(3)}"
+```
