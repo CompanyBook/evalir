@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative '../lib/evalir'
+require 'evalir'
 
 class EvaliratorUnrankedTest < Test::Unit::TestCase
   def setup
