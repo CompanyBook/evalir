@@ -67,3 +67,5 @@ puts "MAP: #{e.mean_average_precision}"
 puts "Precision-Recall Curve: #{e.precision_recall_curve}"
 puts "Avg. NDCG @ 3: #{e.average_ndcg_at(3)}"
 ```
+
+[![Build Status](https://secure.travis-ci.org/CompanyBook/evalir.png?branch=master)](http://travis-ci.org/CompanyBook/evalir)
