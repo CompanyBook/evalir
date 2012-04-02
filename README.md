@@ -1,5 +1,7 @@
 What is Evalir?
 ===============
+[![Build Status](https://secure.travis-ci.org/CompanyBook/evalir.png?branch=master)](http://travis-ci.org/CompanyBook/evalir)
+
 Evalir is a library for evaluation of IR systems. It incorporates a number of standard measurements, from the basic precision and recall, to single value summaries such as NDCG and MAP.
 
 For a good reference on the theory behind this, please check out Manning, Raghavan & Schützes excellent [Introduction to Information Retrieval, ch.8](http://nlp.stanford.edu/IR-book/html/htmledition/evaluation-in-information-retrieval-1.html).
@@ -68,4 +70,3 @@ puts "Precision-Recall Curve: #{e.precision_recall_curve}"
 puts "Avg. NDCG @ 3: #{e.average_ndcg_at(3)}"
 ```
 
-[![Build Status](https://secure.travis-ci.org/CompanyBook/evalir.png?branch=master)](http://travis-ci.org/CompanyBook/evalir)
