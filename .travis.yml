@@ -3,5 +3,6 @@ rvm:
   - 1.9.2
 
 notifications:
+  flowdock: ccdcaacd197d0cd8597b9fcc5fd304be
   email:
     - alexander@companybook.no
