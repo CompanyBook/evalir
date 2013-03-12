@@ -36,6 +36,10 @@ class EvaliratorRankedTest < Test::Unit::TestCase
     assert_equal(0.4, @e.r_precision)
   end
   
+  def test_rank
+    assert_equal(1.0, @e.rank)
+  end
+  
   def test_reciprocal_rank
     assert_equal(1.0, @e.reciprocal_rank)
   end

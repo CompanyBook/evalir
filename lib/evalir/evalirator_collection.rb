@@ -45,6 +45,10 @@ module Evalir
     def mean_average_precision
       @evalirators.reduce(0.0) {|avg,e| avg + (e.average_precision / @evalirators.size)}
     end
+
+    def mean_rank
+      self.reduce(0.0) { |avg,e| avg + (e.rank / self.size)}
+    end
     
     def mean_reciprocal_rank
       self.reduce(0.0) { |avg,e| avg + (e.reciprocal_rank / self.size)}
@@ -74,6 +78,22 @@ module Evalir
     def average_ndcg_at(k, logbase = 2)
       values = self.lazy_map {|e| e.ndcg_at(k, logbase)}
       values.reduce(0.0) { |acc, v| acc + (v / self.size) }
+    end
+
+    def false_positives
+      self.reduce(0) { |sum,e| sum + (e.false_positives) }
+    end
+
+    def true_positives
+      self.reduce(0) { |sum,e| sum + (e.true_positives) }
+    end
+
+    def false_positive_rate
+      self.false_positives / self.total_size
+    end
+
+    def total_size
+      self.reduce(0) { |sum,e| sum + (e.size) }
     end
   end
 end

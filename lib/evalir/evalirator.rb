@@ -149,17 +149,25 @@ module Evalir
       avg
     end
     
+    # The rank of the most highly
+    # ranked relevant result.
+    def rank
+      @search_hits.each_with_index do |h,i|
+        return (i + 1.0) if @relevant_docids.include? h
+      end
+      return 0.0
+    end
+    
     # The reciprocal rank, meaning
     # 1 divided by the rank of the
     # most highly ranked relevant
     # result.
     def reciprocal_rank
-      @search_hits.each_with_index do |h,i|
-        return 1.0 / (i + 1) if @relevant_docids.include? h
-      end
-      return 0.0
+      r = self.rank
+
+      return r > 0 ? (1.0 / r) : 0.0
     end
-    
+
     # Discounted Cumulative Gain at
     # rank k. For a relevant search
     # result at position x, its con-

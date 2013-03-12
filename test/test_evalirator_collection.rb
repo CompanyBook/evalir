@@ -15,6 +15,10 @@ class EvaliratorCollectionTest < Test::Unit::TestCase
   def test_simple_enumeration
     assert_equal(2, @e.count)
   end
+
+  def test_mean_rank
+    assert_equal(1.5, @e.mean_rank)
+  end
   
   def test_mean_reciprocal_rank
     expected = (1.0 + 0.5) / 2
