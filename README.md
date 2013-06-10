@@ -1,6 +1,7 @@
 What is Evalir?
 ===============
 [![Build Status](https://secure.travis-ci.org/CompanyBook/evalir.png?branch=master)](http://travis-ci.org/CompanyBook/evalir)
+[![Code quality](https://codeclimate.com/github/CompanyBook/evalir.png)](https://codeclimate.com/github/CompanyBook/evalir)
 
 Evalir is a library for evaluation of IR systems. It incorporates a number of standard measurements, from the basic precision and recall, to single value summaries such as NDCG and MAP.
 
